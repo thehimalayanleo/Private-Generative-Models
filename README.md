@@ -39,25 +39,8 @@ To reduce the privacy cost (by reducing the sensitvity) we clip the data to a sp
 
 Next we show all the non-private/private KMeans superimposed on the accurate sklearn KMeans.
 
-A. Most accurate non-private KMeans
+![KMeans](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/KMeans.png)
 
-![Non-Private](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/KMeans-Non-Private.png)
-
-B. Private KMeans: Per iteration epsilon = 1, Total cost: (36, 0.18)
-
-![Eps=1](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/kmeans-eps1.png)
-
-C. Private KMeans: Per iteration epsilon = 0.5, Total cost: (21.5, 0.18)
-
-![Eps=0.5](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/kmeans-eps0.5.png)
-
-D. Private KMeans: Per iteration epsilon = 0.2, Total cost: (5.5, 0.18)
-
-![Eps=0.2](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/kmeans-eps0.2.png)
-
-E. Private KMeans: Per iteration epsilon = 0.1, Total cost: (2.4, 0.18)
-
-![Eps=0.2](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/kmeans-eps0.2.png)
 
 2. GMM:
 
