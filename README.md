@@ -44,6 +44,10 @@ Next we show all the non-private/private KMeans superimposed on the accurate skl
 
 2. GMM:
 
+NOTE: Here, we combine the privacy costs of the K-Means with our GMM implementation & we only report the best fit. Depending on randomness & certain hyperparameters the results may vary, but the results presented are true on an average.
+
+![GMM](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/GMM.png)
+
 ## Contributions:
 This repository is currently closed for contributions. Feel free to tune the models with your own hyperparameters.
 
