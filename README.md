@@ -11,6 +11,9 @@ Final Project for ECE695 (Generative Models) at Purdue. Scalable Implementations
 We assume a basic understanding of Expectation-Maximization Algorithm and Differential Privacy (DP):
 1. DP Reference (specifically Gaussian Mechanism on Pg. 261): https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf
 
+## Some Design Considerations:
+Since we require positive noise for certain cases especially where data cannot be negative we should have opted for Laplacian Noise. However, for a large number of queries & when epsilon < 1, Gaussian Noise tends to perform better. So, we use some heurestics like switching negative values to positive (only when required) if the noise pushes values below zero. Currently, these heurestics tend to perform well. We also have implementations of Laplacian Noise ready in the code & we do get similar results albeit with much higher privacy costs. These can be deployed if required too.
+
 ## Implementation Details Building Blocks:
 1. Local Differential Privacy: Each data-point belongs to a single user & we add noise to maintain privacy accordingly.
 2. K-Means: We run experiments on GMM to test if it performs well with random initialization. Unfortunately, it does not. So, we implement private K-Means to find a good inital point (priors, means & covariance matrices) for our GMM.
@@ -37,12 +40,15 @@ Next we show all the non-private/private KMeans superimposed on the accurate skl
 
 ![KMeans](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/KMeans.png)
 
-
 2. GMM:
 
 NOTE: Here, we combine the privacy costs of the K-Means with our GMM implementation & we only report the best fit. Depending on randomness & certain hyperparameters the results may vary, but the results presented are true on an average.
 
 ![GMM](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/GMM.png)
+
+## How to run the code?
+
+Use either the main.ipynb or main.py file in the src folder. The jupyter notebook is recommended & running it on Google Colab is probably easiest. It has been exclusively tested on the Google Colab with a CPU.
 
 ## Contributions:
 This repository is currently closed for contributions. Feel free to tune the models with your own hyperparameters.
