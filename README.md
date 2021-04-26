@@ -6,6 +6,7 @@ Final Project for ECE695 (Generative Models) at Purdue. Scalable Implementations
 ## Future Work:
 - Hidden Markov Model
 - Restricted Boltzmann Machines
+- Scale to image datasets
 
 We assume a basic understanding of Expectation-Maximization Algorithm and Differential Privacy (DP):
 1. DP Reference (specifically Gaussian Mechanism on Pg. 261): https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf
