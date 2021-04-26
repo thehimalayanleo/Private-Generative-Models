@@ -164,7 +164,8 @@ class private_KMeans:
                         num+=self.Y[n]
                         den+=1
                 
-                sensitivity_num = np.sqrt(self.clip_bound)
+                #sensitivity_num = np.sqrt(self.clip_bound)
+                sensitivity_num = self.clip_bound
                 sensitivity_den = 1
                 if self.private: #PRIVATE
                     num += add_noise_gaussian(self.eps, self.delta, sensitivity=sensitivity_num, size=self.d)
@@ -208,7 +209,8 @@ class private_KMeans:
         #print(self.centroids)
 
         if self.private:
-            print('Total eps/delta', advanced_composition(self.eps, self.delta, self.privacy_counts))
+            e, d = advanced_composition(self.eps, self.delta, self.privacy_counts)
+            print('Total eps/delta', min(e, self.privacy_counts*self.eps), min(d, self.privacy_counts*d))
             print('Total privacy mechanisms', self.privacy_counts)
 
         plt.figure()
@@ -322,7 +324,7 @@ class GMM_EM:
 
                 num_cov=(diff_k.T.dot(diff_k))
                 if self.private:
-                    num_cov+=add_noise(self.eps, self.delta, sensitivity=self.clip_bound, size=(self.d, self.d))
+                    num_cov+=add_noise(self.eps, self.delta, sensitivity=self.clip_bound**2, size=(self.d, self.d))
                     num_cov=np.abs(num_cov)
                     self.privacy_counts+=(self.d*(self.d+1))/2.
 
@@ -391,7 +393,7 @@ class GMM_EM:
         samples = np.sum(proba, axis=0)
         if self.private:
             for k in range(N_classes):
-                samples[k]+=add_noise(self.eps, self.delta, sensitivity=self.clip_bound, size=1)
+                samples[k]+=add_noise(self.eps, self.delta, sensitivity=1, size=1)
                 samples[k]=np.abs(samples[k])
                 self.privacy_counts+=1
 
@@ -401,7 +403,7 @@ class GMM_EM:
             num_mean = (gammas.T.dot(data).flatten())
 
             if self.private:
-                num_mean+=add_noise(self.eps, self.delta, sensitivity=np.sqrt(self.clip_bound), size=self.d)
+                num_mean+=add_noise(self.eps, self.delta, sensitivity=self.clip_bound, size=self.d)
                 self.privacy_counts+=self.d
 
             self.means[k, :] = num_mean/samples[k] 
@@ -411,7 +413,7 @@ class GMM_EM:
 
             num_cov=(diff_k.T.dot(diff_k*gammas[..., np.newaxis]))
             if self.private:
-                num_cov+=add_noise(self.eps, self.delta, sensitivity=self.clip_bound, size=(self.d, self.d))
+                num_cov+=add_noise(self.eps, self.delta, sensitivity=self.clip_bound**2, size=(self.d, self.d))
                 self.privacy_counts+=(self.d*(self.d+1))/2.
                 
             self.covs[k, :] = num_cov/samples[k]
@@ -434,7 +436,8 @@ class GMM_EM:
                 break
 
         if self.private:
-            print('Total Privacy Cost:', advanced_composition(self.eps, self.delta, self.privacy_counts))
+            e, d = advanced_composition(self.eps, self.delta, self.privacy_counts)
+            print('Total eps/delta', min(e, self.privacy_counts*self.eps), min(d, self.privacy_counts*d))
         print('No. of Iterations required:', iterations+1)
         plt.figure()
         plt.title('Log Likelihood Loss over iterations')
@@ -616,10 +619,13 @@ plt.show()
 eps_model = 4.5
 # Private Last Model
 counts = 0
+b = 3
 for k in range(3):
-    gmm_em.means[k, :]+=add_noise(eps_model, 1./200, sensitivity=np.sqrt(6), size=2)
+    gmm_em.means[k, :] = clip_gaussian(gmm_em.means[k, :], b)
+    gmm_em.covs[k, :] = clip_gaussian(gmm_em.covs[k, :], b**2)
+    gmm_em.means[k, :]+=add_noise(eps_model, 1./200, sensitivity=b, size=2)
     gmm_em.priors[k]+=(add_noise(eps_model, 1./200, sensitivity=1, size=1))
-    gmm_em.covs[k, :]+=(add_noise(eps_model, 1./200, sensitivity=6, size=(2, 2)))
+    gmm_em.covs[k, :]+=(add_noise(eps_model, 1./200, sensitivity=b**2, size=(2, 2)))
     counts+=6
 gmm_em.priors = np.abs(gmm_em.priors)
 #gmm_em.covs = np.abs(gmm_em.covs)
