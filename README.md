@@ -33,10 +33,6 @@ NOTE: We use the sklearn implementations as our baselines along with our own imp
 
 1. K-Means:
 
-To reduce the privacy cost (by reducing the sensitvity) we clip the data to a sphere of radius 3 shown next.
-
-![Clipped Data](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/clipped-data-norm-3.png)
-
 Next we show all the non-private/private KMeans superimposed on the accurate sklearn KMeans.
 
 ![KMeans](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/KMeans.png)
