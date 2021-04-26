@@ -27,6 +27,7 @@ We assume a basic understanding of Expectation-Maximization Algorithm and Differ
 
 NOTE: We use the sklearn implementations as our baselines along with our own implementations.
 
+- Initial Data with given labels:
 ![Initial Available Data](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/initial-data.png)
 
 1. K-Means:
