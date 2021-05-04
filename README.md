@@ -2,11 +2,17 @@
 Final Project for ECE695 (Generative Models) at Purdue. Scalable Implementations of Locally Differentially Private:
 - KMeans
 - Gaussian Mixture Model (GMM)
+- Principal Component Analysis (PCA)
+- Factor Analysis (FA)
+
+Datasets Used:
+- 2D dataset with 200 samples from ECE695 course at Purdue
+- Olivetti Face Dataset (Available at [Sklearn Olivetii Face Page](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_olivetti_faces.html))
 
 ## Future Work:
 - Hidden Markov Model
 - Restricted Boltzmann Machines
-- Scale to image datasets
+- Scale to image datasets (DONE)
 
 We assume a basic understanding of Expectation-Maximization Algorithm and Differential Privacy (DP):
 1. DP Reference (specifically Gaussian Mechanism on Pg. 261): https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf
@@ -46,6 +52,12 @@ NOTE: Here, we combine the privacy costs of the K-Means with our GMM implementat
 
 ![GMM](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/GMM.png)
 
+3. FA (intialized with PCA)
+
+NOTE: Instead of separately implementing PCA we integrate it with FA. However, unlike the results claimed in the paper by Park et al we do not get results as good with an epsilon (=0.3) that small. Instead we move out the PCA intilization and assume it to be non-private and use the intialized values to run FA. We implement the differentially private matrices using the results of Analyze Gauss machansim from Dwork et al. Even then we only get acceptable results with epsilon ranging in the hundreds and for anything in the single digit range we get pure noise instead. The results are shown below.
+
+
+
 ## How to run the code?
 
 Use either the main.ipynb or main.py file in the src folder. The jupyter notebook is recommended & running it on Google Colab is probably easiest. It has been exclusively tested on the Google Colab with a CPU.
@@ -56,4 +68,5 @@ This repository is currently closed for contributions. Feel free to tune the mod
 ## Major References:
 - Park, Mijung, et al. "DP-EM: Differentially private expectation maximization." Artificial Intelligence and Statistics. PMLR, 2017.
 - Kairouz, Peter, Sewoong Oh, and Pramod Viswanath. "The composition theorem for differential privacy." International conference on machine learning. PMLR, 2015.
+- Dwork, Cynthia, et al. "Analyze gauss: optimal bounds for privacy-preserving principal component analysis." Proceedings of the forty-sixth annual ACM symposium on Theory of computing. 2014.
 
