@@ -56,7 +56,7 @@ NOTE: Here, we combine the privacy costs of the K-Means with our GMM implementat
 
 NOTE: Instead of separately implementing PCA we integrate it with FA. However, unlike the results claimed in the paper by Park et al we do not get results as good with an epsilon (=0.3) that small. Instead we move out the PCA intilization and assume it to be non-private and use the intialized values to run FA. We implement the differentially private matrices using the results of Analyze Gauss machansim from Dwork et al. Even then we only get acceptable results with epsilon ranging in the hundreds and for anything in the single digit range we get pure noise instead. The results are shown below.
 
-
+![PCA](https://github.com/thehimalayanleo/Private-Generative-Models/blob/main/results/FA-NonPrivate-PCA.png)
 
 ## How to run the code?
 
