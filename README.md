@@ -60,7 +60,7 @@ NOTE: Instead of separately implementing PCA we integrate it with FA. However, u
 
 ## How to run the code?
 
-Use either the main.ipynb or main.py file in the src folder. The jupyter notebook is recommended & running it on Google Colab is probably easiest. It has been exclusively tested on the Google Colab with a CPU.
+Use either the main.ipynb or main.py file in the src folder. The PCA/FA implementation is also located separately in the private_fa_pca.py and private_fa_pca.ipynb files. The jupyter notebook is recommended & running it on Google Colab is probably easiest. It has been exclusively tested on the Google Colab with a CPU.
 
 ## Contributions:
 This repository is currently closed for contributions. Feel free to tune the models with your own hyperparameters.
